@@ -1,3 +1,5 @@
+import 'package:cactus_wallet_watcher/confidential.dart';
+import 'package:cactus_wallet_watcher/services/api_services.dart';
 import 'package:cactus_wallet_watcher/shared_components/token_list_header.dart';
 import 'package:cactus_wallet_watcher/shared_components/token_list_tile.dart';
 import 'package:cactus_wallet_watcher/shared_components/wallet_header.dart';
@@ -10,13 +12,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final formKey = GlobalKey<FormState>();
-  final textEditingController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    APIServices().getAccountBalance(kMetaMask).then((value) {
+      print(value.result);
+    });
+    APIServices().getTxList(kMetaMask).then((value) {
+      // print(value.result[0].value);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     return Scaffold(
       appBar: buildAppBar(),
       body: PageView.builder(
@@ -25,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
           return Column(
             children: [
               WalletHeader(title: 'Ethereum Wallet', value: 12000),
+              Divider(),
               TokenListHeader(),
               Expanded(
                 child: ListView.builder(

@@ -12,7 +12,7 @@ class WalletHeader extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Container(
-      height: size.height * 0.15,
+      height: size.height * 0.2,
       width: double.infinity,
       padding: EdgeInsets.all(size.height * 0.01),
       // color: kBlueNavyColor,
@@ -23,10 +23,7 @@ class WalletHeader extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Ethereum Wallet',
-                style: Theme.of(context).textTheme.headline6,
-              ),
+              Text('Ethereum Wallet'),
               IconButton(
                 icon: Icon(Icons.qr_code_outlined),
                 onPressed: () => buildQRScanner(context),

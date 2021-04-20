@@ -1,3 +1,4 @@
+import 'package:cactus_wallet_watcher/constants.dart';
 import 'package:cactus_wallet_watcher/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,7 +17,11 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      // theme: ThemeData(),
+      theme: ThemeData.dark().copyWith(
+        primaryColor: Colors.black,
+        scaffoldBackgroundColor: Colors.black,
+        accentColor: kAccentColor,
+      ),
       home: HomeScreen(),
     );
   }
