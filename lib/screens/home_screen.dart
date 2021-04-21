@@ -1,11 +1,16 @@
 import 'package:cactus_wallet_watcher/confidential.dart';
-import 'package:cactus_wallet_watcher/services/api_services.dart';
-import 'package:cactus_wallet_watcher/services/ethplorer_api_service.dart';
+import 'package:cactus_wallet_watcher/models/ethplorer_account_balance.dart';
 import 'package:cactus_wallet_watcher/shared_components/token_list_header.dart';
 import 'package:cactus_wallet_watcher/shared_components/token_list_tile.dart';
 import 'package:cactus_wallet_watcher/shared_components/wallet_header.dart';
+import 'package:cactus_wallet_watcher/state_management/class_providers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+final ethplorerAccountBalance = FutureProvider<EthplorerAccountBalance>((ref) {
+  return ref.read(ethplorerAPIService).getAccountBalance(kMetaMask);
+});
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -14,41 +19,40 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
-  void initState() {
-    super.initState();
-    APIServices().getAccountBalance(kMetaMask).then((value) {
-      // print(value.result);
-    });
-    APIServices().getTxList(kMetaMask).then((value) {
-      // print(value.result[0].value);
-    });
-    EthplorerAPIService().getAccountBalance(kMetaMask).then((value) {
-      print(value.tokens[0].tokenInfo.address);
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
       body: PageView.builder(
         itemCount: 2,
         itemBuilder: (context, index) {
-          return Column(
-            children: [
-              WalletHeader(title: 'Ethereum Wallet', value: 12000),
-              Divider(),
-              TokenListHeader(),
-              Expanded(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: 20,
-                  itemBuilder: (context, index) {
-                    return TokenListTile();
-                  },
-                ),
-              ),
-            ],
+          return Consumer(
+            builder: (_, watch, __) {
+              final wallet = watch(ethplorerAccountBalance);
+              return wallet.when(
+                loading: () => Container(),
+                data: (data) {
+                  return Column(
+                    children: [
+                      WalletHeader(eth: data.eth),
+                      Divider(color: Colors.black, height: 0),
+                      TokenListHeader(),
+                      Divider(color: Colors.black, height: 0),
+                      Expanded(
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: 20,
+                          itemBuilder: (context, index) {
+                            return TokenListTile(token: data.tokens[index]);
+                          },
+                        ),
+                      ),
+                    ],
+                  );
+                },
+                error: (error, stackTrace) =>
+                    Center(child: Text(error.toString())),
+              );
+            },
           );
         },
       ),

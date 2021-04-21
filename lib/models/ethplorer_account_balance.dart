@@ -151,7 +151,8 @@ class TokenInfo {
       issuancesCount: json["issuancesCount"],
       holdersCount: json["holdersCount"],
       ethTransfersCount: json["ethTransfersCount"],
-      price: json["price"],
+      price:
+          json['price'] == false ? 0 : PriceClass.fromJson(json["price"]).rate,
       website: json["website"] == null ? null : json["website"],
       telegram: json["telegram"] == null ? null : json["telegram"],
       twitter: json["twitter"] == null ? null : json["twitter"],

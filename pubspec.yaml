@@ -14,7 +14,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   http: ^0.13.1
   lottie: ^1.0.1
-  flutter_riverpod: ^0.13.1
+  flutter_riverpod: ^0.14.0+1
   url_launcher: ^6.0.2
   animations: ^2.0.0
   coingecko_dart: ^0.1.0

@@ -1,21 +1,20 @@
 import 'package:animations/animations.dart';
+import 'package:cactus_wallet_watcher/models/ethplorer_account_balance.dart';
 import 'package:flutter/material.dart';
 
 class WalletHeader extends StatelessWidget {
-  const WalletHeader({Key key, this.title, this.value}) : super(key: key);
+  const WalletHeader({Key key, this.eth}) : super(key: key);
 
-  final String title;
-  final double value;
+  final Eth eth;
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
     return Container(
-      height: size.height * 0.2,
+      height: size.height * 0.15,
       width: double.infinity,
       padding: EdgeInsets.all(size.height * 0.01),
-      // color: kBlueNavyColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,9 +29,21 @@ class WalletHeader extends StatelessWidget {
               ),
             ],
           ),
-          Text(
-            '\$2000',
-            style: Theme.of(context).textTheme.headline3,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '${eth.balance.toStringAsPrecision(4)} Eth',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              Text(
+                '\$${(eth.balance * eth.price.rate).roundToDouble()}',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline4
+                    .copyWith(color: Colors.green, fontWeight: FontWeight.bold),
+              ),
+            ],
           ),
         ],
       ),

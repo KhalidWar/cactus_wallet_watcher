@@ -1,10 +1,14 @@
-import 'package:cactus_wallet_watcher/constants.dart';
 import 'package:cactus_wallet_watcher/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -17,11 +21,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark().copyWith(
-        primaryColor: Colors.black,
-        scaffoldBackgroundColor: Colors.black,
-        accentColor: kAccentColor,
-      ),
+      theme: ThemeData(),
       home: HomeScreen(),
     );
   }
