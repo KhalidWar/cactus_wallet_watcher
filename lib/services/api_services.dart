@@ -11,7 +11,7 @@ class APIServices {
   Future<AccountBalance> getAccountBalance(String walletAddress) async {
     try {
       final response = await http.get(Uri.parse(
-        '$kBaseURL?module=$kModule&action=$kActionBalance&address=$walletAddress&tag=$kTagLatest&apikey=$kAPIKey',
+        '$kEtherscanBaseURL?module=$kModule&action=$kActionBalance&address=$walletAddress&tag=$kTagLatest&apikey=$kAPIKey',
       ));
 
       if (jsonDecode(response.body)['status'] == '1') {
@@ -27,7 +27,7 @@ class APIServices {
   Future<TxDataModel> getTxList(String walletAddress) async {
     try {
       final response = await http.get(Uri.parse(
-        '$kBaseURL?module=$kModule&action=$kActionTxList&address=$walletAddress&tag=$kTagLatest&apikey=$kAPIKey',
+        '$kEtherscanBaseURL?module=$kModule&action=$kActionTxList&address=$walletAddress&tag=$kTagLatest&apikey=$kAPIKey',
       ));
 
       if (jsonDecode(response.body)['status'] == '1') {

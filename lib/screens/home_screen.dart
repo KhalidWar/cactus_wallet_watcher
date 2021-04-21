@@ -1,5 +1,6 @@
 import 'package:cactus_wallet_watcher/confidential.dart';
 import 'package:cactus_wallet_watcher/services/api_services.dart';
+import 'package:cactus_wallet_watcher/services/ethplorer_api_service.dart';
 import 'package:cactus_wallet_watcher/shared_components/token_list_header.dart';
 import 'package:cactus_wallet_watcher/shared_components/token_list_tile.dart';
 import 'package:cactus_wallet_watcher/shared_components/wallet_header.dart';
@@ -16,10 +17,13 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     APIServices().getAccountBalance(kMetaMask).then((value) {
-      print(value.result);
+      // print(value.result);
     });
     APIServices().getTxList(kMetaMask).then((value) {
       // print(value.result[0].value);
+    });
+    EthplorerAPIService().getAccountBalance(kMetaMask).then((value) {
+      print(value.tokens[0].tokenInfo.address);
     });
   }
 
