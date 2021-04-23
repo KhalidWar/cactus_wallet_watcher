@@ -10,7 +10,7 @@ class AddNewWallet extends StatelessWidget {
     if (_formKey.currentState.validate()) {
       await context
           .read(sharedPrefProvider)
-          .saveWallet(_textEditingController.text.trim());
+          .saveWalletList(_textEditingController.text.trim());
       _textEditingController.clear();
       Navigator.pop(context);
     }

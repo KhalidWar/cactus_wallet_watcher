@@ -5,40 +5,43 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+final getWallets = FutureProvider<List<String>>((ref) {
+  return ref.read(sharedPrefProvider).loadWalletList();
+});
+
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<String> walletsList = [];
-
-  void getWallets() async {
-    final wallet = await context.read(sharedPrefProvider).loadWallets();
-    if (wallet != null) {
-      walletsList.add(wallet);
-    }
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getWallets();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
-      body: PageView.builder(
-        itemCount: walletsList.isEmpty ? 1 : walletsList.length,
-        itemBuilder: (context, index) {
-          if (walletsList.isEmpty) {
-            return Center(child: Text('No wallets found. Add a new wallet.'));
-          } else {
-            return WalletPage(walletAddress: walletsList[index]);
-          }
+      body: Consumer(
+        builder: (_, watch, __) {
+          final walletsAsyncValue = watch(getWallets);
+
+          return walletsAsyncValue.when(
+            loading: () => CircularProgressIndicator(),
+            data: (walletsList) {
+              return PageView.builder(
+                itemCount: walletsList.isEmpty ? 1 : walletsList.length,
+                itemBuilder: (context, index) {
+                  if (walletsList.isEmpty) {
+                    return Center(
+                        child: Text('No wallets found. Add a new wallet.'));
+                  } else {
+                    return WalletPage(walletAddress: walletsList[index]);
+                  }
+                },
+              );
+            },
+            error: (error, stackTrace) {
+              return Center(child: Text(error.toString()));
+            },
+          );
         },
       ),
     );
