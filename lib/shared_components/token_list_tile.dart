@@ -44,6 +44,7 @@ class TokenListTile extends StatelessWidget {
       ),
       title: Text(price.toStringAsExponential(1)),
       trailing: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text('${balance.toStringAsExponential(1)}'),
