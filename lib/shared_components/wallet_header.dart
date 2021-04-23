@@ -1,11 +1,12 @@
-import 'package:animations/animations.dart';
 import 'package:cactus_wallet_watcher/models/ethplorer_account_balance.dart';
+import 'package:cactus_wallet_watcher/screens/qr_screen.dart';
 import 'package:flutter/material.dart';
 
 class WalletHeader extends StatelessWidget {
-  const WalletHeader({Key key, this.eth}) : super(key: key);
+  const WalletHeader({Key key, this.eth, this.walletAddress}) : super(key: key);
 
   final Eth eth;
+  final String walletAddress;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,16 @@ class WalletHeader extends StatelessWidget {
               Text('Ethereum Wallet'),
               IconButton(
                 icon: Icon(Icons.qr_code_outlined),
-                onPressed: () => buildQRScanner(context),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return QRScreen(walletAddress: walletAddress);
+                      },
+                    ),
+                  );
+                },
               ),
             ],
           ),
@@ -47,24 +57,6 @@ class WalletHeader extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  Future buildQRScanner(BuildContext context) {
-    return showModal(
-      context: context,
-      builder: (context) {
-        final size = MediaQuery.of(context).size;
-
-        return SimpleDialog(
-          title: Text('Ethereum Wallet'),
-          children: [
-            Container(
-              height: size.height * 0.3,
-            ),
-          ],
-        );
-      },
     );
   }
 }

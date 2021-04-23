@@ -25,7 +25,10 @@ class WalletPage extends StatelessWidget {
           default:
             return Column(
               children: [
-                WalletHeader(eth: snapshot.data.eth),
+                WalletHeader(
+                  walletAddress: walletAddress,
+                  eth: snapshot.data.eth,
+                ),
                 Divider(color: Colors.black, height: 0),
                 TokenListHeader(),
                 Divider(color: Colors.black, height: 0),
