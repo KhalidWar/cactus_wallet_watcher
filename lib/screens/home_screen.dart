@@ -1,13 +1,10 @@
 import 'package:cactus_wallet_watcher/screens/add_new_wallet.dart';
+import 'package:cactus_wallet_watcher/screens/settings_screen.dart';
 import 'package:cactus_wallet_watcher/screens/wallet_page.dart';
-import 'package:cactus_wallet_watcher/state_management/class_providers.dart';
+import 'package:cactus_wallet_watcher/state_management/global_providers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-final getWallets = FutureProvider<List<String>>((ref) {
-  return ref.read(sharedPrefProvider).loadWalletList();
-});
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -50,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
   AppBar buildAppBar() {
     return AppBar(
       elevation: 0,
-      title: Text('Wallet Watcher'),
+      title: Text('Cactus Wallet Watcher'),
       actions: [
         IconButton(
           icon: Icon(Icons.add),
@@ -67,7 +64,16 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         IconButton(
           icon: Icon(Icons.settings),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return SettingsScreen();
+                },
+              ),
+            );
+          },
         ),
       ],
     );

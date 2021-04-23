@@ -2,7 +2,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPref {
   final _futureSharedPref = SharedPreferences.getInstance();
-  final _walletsKey = 'walletsKey';
   final _walletListKey = 'walletListKey';
 
   Future<void> saveWalletList(String wallet) async {
@@ -17,8 +16,15 @@ class SharedPref {
     return sharedPref.getStringList(_walletListKey);
   }
 
-  Future<void> deleteWallet() async {
+  Future<void> deleteWallet(String walletAddress) async {
     final sharedPref = await _futureSharedPref;
-    await sharedPref.remove(_walletsKey);
+    final currentWalletList = sharedPref.getStringList(_walletListKey) ?? [];
+
+    for (String currentWallet in currentWalletList) {
+      if (currentWallet.compareTo(walletAddress) == 0) {
+        print(currentWallet);
+        currentWalletList.remove(walletAddress);
+      }
+    }
   }
 }
