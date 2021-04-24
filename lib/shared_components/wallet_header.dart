@@ -1,19 +1,22 @@
 import 'package:cactus_wallet_watcher/models/ethplorer_account_balance.dart';
 import 'package:cactus_wallet_watcher/screens/qr_screen.dart';
+import 'package:cactus_wallet_watcher/state_management/wallets_state_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class WalletHeader extends StatelessWidget {
-  const WalletHeader({Key key, this.eth, this.walletAddress}) : super(key: key);
+  const WalletHeader({Key key, this.eth}) : super(key: key);
 
   final Eth eth;
-  final String walletAddress;
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final walletAddress =
+        context.read(walletsStateManagerProvider).walletAddress;
 
     return Container(
-      height: size.height * 0.15,
+      height: size.height * 0.2,
       width: double.infinity,
       padding: EdgeInsets.all(size.height * 0.01),
       child: Column(
@@ -23,9 +26,11 @@ class WalletHeader extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Ethereum Wallet'),
+              Text(
+                '${walletAddress.substring(0, 4)}...${walletAddress.substring(38)}',
+              ),
               IconButton(
-                icon: Icon(Icons.qr_code_outlined),
+                icon: Icon(Icons.qr_code_outlined, size: 30),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -43,7 +48,7 @@ class WalletHeader extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '${eth.balance.toStringAsPrecision(4)} Eth',
+                '${eth.balance.toStringAsPrecision(4)} ETH',
                 style: Theme.of(context).textTheme.headline6,
               ),
               Text(
