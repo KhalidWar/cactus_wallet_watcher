@@ -12,9 +12,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../constants.dart';
+
 final walletProvider =
     FutureProvider.autoDispose<EthplorerAccountBalance>((ref) {
-  final walletAddress = ref.read(walletsStateManagerProvider).walletAddress;
+  final walletAddress =
+      ref.read(walletsStateManagerProvider).walletModel.address;
   return ref.read(ethplorerAPIService).getAccountBalance(walletAddress);
 });
 
@@ -59,13 +62,16 @@ class WalletPage extends StatelessWidget {
 
   AppBar buildAppBar(BuildContext context) {
     final confirmationDialog = ConfirmationDialog();
+    final walletModel = context.read(walletsStateManagerProvider).walletModel;
 
     void remove() {
+      context.read(walletsStateManagerProvider).walletModel.delete();
+      Navigator.pop(context);
       Navigator.pop(context);
     }
 
     return AppBar(
-      title: Text('Ethereum Wallet'),
+      title: Text(walletModel.label),
       actions: [
         PopupMenuButton(
           itemBuilder: (BuildContext context) {
@@ -81,16 +87,10 @@ class WalletPage extends StatelessWidget {
               context: context,
               builder: (context) {
                 return Platform.isIOS
-                    ? confirmationDialog.iOSAlertDialog(
-                        context,
-                        'kDeleteRecipientDialogText',
-                        remove,
-                        'Delete recipient')
-                    : confirmationDialog.androidAlertDialog(
-                        context,
-                        'kDeleteRecipientDialogText',
-                        remove,
-                        'Delete recipient');
+                    ? confirmationDialog.iOSAlertDialog(context,
+                        kDeleteWalletConfirmation, remove, 'Delete recipient')
+                    : confirmationDialog.androidAlertDialog(context,
+                        kDeleteWalletConfirmation, remove, 'Delete recipient');
               },
             );
           },

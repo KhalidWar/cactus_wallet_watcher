@@ -13,7 +13,7 @@ class WalletHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final walletAddress =
-        context.read(walletsStateManagerProvider).walletAddress;
+        context.read(walletsStateManagerProvider).walletModel.address;
 
     return Container(
       height: size.height * 0.2,

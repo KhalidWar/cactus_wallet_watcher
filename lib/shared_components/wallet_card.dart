@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class WalletCard extends StatelessWidget {
-  const WalletCard({Key key, this.walletAddress, this.storeIcon})
+  const WalletCard({Key key, this.walletAddress, this.walletLabel})
       : super(key: key);
 
-  final String storeIcon, walletAddress;
+  final String walletLabel, walletAddress;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class WalletCard extends StatelessWidget {
             ),
           ),
           Text(
-            'Ethereum Wallet',
+            walletLabel,
             style: Theme.of(context).textTheme.bodyText1,
           ),
           Text(

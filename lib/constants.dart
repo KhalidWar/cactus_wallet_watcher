@@ -16,3 +16,7 @@ const kTagLatest = 'latest';
 const kEthplorerBaseURL = 'https://api.ethplorer.io';
 const kEthplorerAddressInfoURL = 'getAddressInfo';
 const kEthplorerIO = 'https://ethplorer.io';
+
+/// UI String
+const kDeleteWalletConfirmation =
+    'Are you sure you want to delete this wallet?';
