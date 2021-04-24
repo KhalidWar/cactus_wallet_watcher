@@ -17,7 +17,7 @@ class WalletCard extends StatelessWidget {
           Expanded(
             child: Image.asset(
               'assets/images/ethereum.png',
-              width: size.width * 0.25,
+              width: size.width * 0.2,
             ),
           ),
           Text(

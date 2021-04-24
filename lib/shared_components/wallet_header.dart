@@ -27,7 +27,8 @@ class WalletHeader extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '${walletAddress.substring(0, 4)}...${walletAddress.substring(38)}',
+                'Ethereum Wallet',
+                style: Theme.of(context).textTheme.headline6,
               ),
               IconButton(
                 icon: Icon(Icons.qr_code_outlined, size: 30),

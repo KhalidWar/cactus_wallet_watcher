@@ -1,3 +1,4 @@
+import 'package:cactus_wallet_watcher/services/form_validation.dart';
 import 'package:cactus_wallet_watcher/state_management/class_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -31,8 +32,7 @@ class AddNewWallet extends StatelessWidget {
             Form(
               key: _formKey,
               child: TextFormField(
-                validator: (input) =>
-                    input.isEmpty ? 'Enter wallet address' : null,
+                validator: (input) => FormValidation().validateAddWallet(input),
                 controller: _textEditingController,
                 decoration: InputDecoration(),
               ),
