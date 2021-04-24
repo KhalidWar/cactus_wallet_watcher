@@ -18,7 +18,6 @@ dependencies:
   url_launcher: ^6.0.2
   animations: ^2.0.0
   coingecko_dart: ^0.1.0
-  shared_preferences: ^2.0.5
   qr_flutter: ^4.0.0
 
 
