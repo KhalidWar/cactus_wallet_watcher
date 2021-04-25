@@ -4,6 +4,7 @@ import 'package:cactus_wallet_watcher/screens/add_new_wallet.dart';
 import 'package:cactus_wallet_watcher/screens/settings_screen.dart';
 import 'package:cactus_wallet_watcher/screens/wallet_page.dart';
 import 'package:cactus_wallet_watcher/services/hive_boxes.dart';
+import 'package:cactus_wallet_watcher/shared_components/custom_page_route.dart';
 import 'package:cactus_wallet_watcher/shared_components/wallet_card.dart';
 import 'package:cactus_wallet_watcher/state_management/wallets_state_manager.dart';
 import 'package:flutter/cupertino.dart';
@@ -81,11 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return SettingsScreen();
-                },
-              ),
+              CustomPageRoute(SettingsScreen()),
             );
           },
         ),
@@ -99,11 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (context) {
-              return AddNewWallet();
-            },
-          ),
+          CustomPageRoute(AddNewWallet()),
         );
       },
     );

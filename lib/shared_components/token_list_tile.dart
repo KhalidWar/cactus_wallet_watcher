@@ -1,4 +1,6 @@
 import 'package:cactus_wallet_watcher/models/ethplorer_account_balance.dart';
+import 'package:cactus_wallet_watcher/screens/token_screen.dart';
+import 'package:cactus_wallet_watcher/shared_components/custom_page_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -51,7 +53,12 @@ class TokenListTile extends StatelessWidget {
           Text('${(price * balance).toStringAsExponential(1)}'),
         ],
       ),
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          CustomPageRoute(TokenScreen(token: token)),
+        );
+      },
     );
   }
 

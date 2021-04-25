@@ -4,6 +4,8 @@ import 'package:cactus_wallet_watcher/state_management/wallets_state_manager.dar
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'custom_page_route.dart';
+
 class WalletHeader extends StatelessWidget {
   const WalletHeader({Key key, this.eth}) : super(key: key);
 
@@ -35,11 +37,7 @@ class WalletHeader extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return QRScreen(walletAddress: walletAddress);
-                      },
-                    ),
+                    CustomPageRoute(QRScreen(walletAddress: walletAddress)),
                   );
                 },
               ),
