@@ -1,8 +1,8 @@
 import 'package:animations/animations.dart';
 import 'package:cactus_wallet_watcher/models/wallet_model.dart';
+import 'package:cactus_wallet_watcher/screens/add_new_wallet.dart';
 import 'package:cactus_wallet_watcher/screens/settings_screen.dart';
 import 'package:cactus_wallet_watcher/screens/wallet_page.dart';
-import 'package:cactus_wallet_watcher/services/form_validation.dart';
 import 'package:cactus_wallet_watcher/services/hive_boxes.dart';
 import 'package:cactus_wallet_watcher/shared_components/wallet_card.dart';
 import 'package:cactus_wallet_watcher/state_management/wallets_state_manager.dart';
@@ -55,10 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   closedBuilder: (context, closedWidget) {
-                    return WalletCard(
-                      walletLabel: wallets[index].label,
-                      walletAddress: wallets[index].address,
-                    );
+                    return WalletCard(walletModel: wallets[index]);
                   },
                   openBuilder: (context, openWidget) {
                     context.read(walletsStateManagerProvider).walletModel =
@@ -97,74 +94,16 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   FloatingActionButton buildFloatingActionButton(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
-    final _addressFormKey = GlobalKey<FormState>();
-    final _labelFormKey = GlobalKey<FormState>();
-    final _addressTextController = TextEditingController();
-    final _labelTextController = TextEditingController();
-
-    void addWallet() {
-      if (_addressFormKey.currentState.validate() ||
-          _labelFormKey.currentState.validate()) {
-        final wallet = WalletModel(
-          _labelTextController.text.trim(),
-          _addressTextController.text.trim(),
-          'ethereum',
-        );
-
-        final walletBoxes = HiveBoxes.getWalletBoxes();
-        walletBoxes.add(wallet);
-      }
-    }
-
     return FloatingActionButton(
       child: Icon(Icons.add),
       onPressed: () {
-        showModal(
-          context: context,
-          builder: (context) {
-            return SimpleDialog(
-              title: Text('Add Wallet'),
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(size.height * 0.01),
-                  child: Column(
-                    children: [
-                      Text('Add a new Ethereum wallet to watch.'),
-                      SizedBox(height: size.height * 0.05),
-                      Text('Enter wallet address'),
-                      Form(
-                        key: _addressFormKey,
-                        child: TextFormField(
-                          validator: (input) =>
-                              FormValidation().validateAddWallet(input),
-                          controller: _addressTextController,
-                          decoration: InputDecoration(),
-                        ),
-                      ),
-                      SizedBox(height: size.height * 0.05),
-                      Text('Enter wallet label'),
-                      Form(
-                        key: _labelFormKey,
-                        child: TextFormField(
-                          validator: (input) =>
-                              FormValidation().validateAddWallet(input),
-                          controller: _labelTextController,
-                          decoration: InputDecoration(),
-                        ),
-                      ),
-                      SizedBox(height: size.height * 0.05),
-                      ElevatedButton(
-                        child: Text('Add Wallet'),
-                        onPressed: () => addWallet(),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            );
-          },
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return AddNewWallet();
+            },
+          ),
         );
       },
     );

@@ -1,10 +1,18 @@
+import 'package:cactus_wallet_watcher/models/wallet_model.dart';
 import 'package:flutter/material.dart';
 
 class WalletCard extends StatelessWidget {
-  const WalletCard({Key key, this.walletAddress, this.walletLabel})
-      : super(key: key);
+  const WalletCard({Key key, this.walletModel}) : super(key: key);
 
-  final String walletLabel, walletAddress;
+  final WalletModel walletModel;
+
+  String getWalletType(String walletType) {
+    if (walletType == 'ethereum') {
+      return 'assets/images/ethereum.png';
+    } else {
+      return 'assets/images/bitcoin.png';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,16 +24,16 @@ class WalletCard extends StatelessWidget {
         children: [
           Expanded(
             child: Image.asset(
-              'assets/images/ethereum.png',
+              getWalletType(walletModel.type),
               width: size.width * 0.2,
             ),
           ),
           Text(
-            walletLabel,
+            walletModel.label,
             style: Theme.of(context).textTheme.bodyText1,
           ),
           Text(
-            '${walletAddress.substring(0, 4)}...${walletAddress.substring(38)}',
+            '${walletModel.address.substring(0, 4)}...${walletModel.address.substring(38)}',
           ),
         ],
       ),

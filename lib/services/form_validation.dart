@@ -1,7 +1,14 @@
 class FormValidation {
-  String validateAddWallet(String input) {
+  String validateWalletAddress(String input) {
     if (input.isEmpty || input == null) {
-      return 'Please provide a valid Eth Wallet Address';
+      return 'Provide Wallet Address';
+    }
+    return null;
+  }
+
+  String validateWalletLabel(String input) {
+    if (input.isEmpty || input == null) {
+      return 'Provide Wallet label';
     }
     return null;
   }
