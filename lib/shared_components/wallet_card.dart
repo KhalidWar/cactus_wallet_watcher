@@ -17,6 +17,7 @@ class WalletCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final walletAddress = walletModel.address;
 
     return Container(
       padding: EdgeInsets.all(8),
@@ -33,7 +34,7 @@ class WalletCard extends StatelessWidget {
             style: Theme.of(context).textTheme.bodyText1,
           ),
           Text(
-            '${walletModel.address.substring(0, 4)}...${walletModel.address.substring(38)}',
+            '${walletAddress.substring(0, 4)}....${walletAddress.substring(walletAddress.length - 4)}',
           ),
         ],
       ),
