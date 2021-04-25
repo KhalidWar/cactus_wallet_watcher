@@ -20,3 +20,7 @@ const kEthplorerIO = 'https://ethplorer.io';
 /// UI String
 const kDeleteWalletConfirmation =
     'Are you sure you want to delete this wallet?';
+
+/// Public Wallets
+const kVitalikWallet = '0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B';
+const kSatoshiWallet = '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa';

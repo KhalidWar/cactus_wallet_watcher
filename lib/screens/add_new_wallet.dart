@@ -1,3 +1,4 @@
+import 'package:cactus_wallet_watcher/constants.dart';
 import 'package:cactus_wallet_watcher/models/wallet_model.dart';
 import 'package:cactus_wallet_watcher/services/form_validation.dart';
 import 'package:cactus_wallet_watcher/services/hive_boxes.dart';
@@ -19,15 +20,15 @@ class _AddNewWalletState extends State<AddNewWallet> {
 
   WalletType _walletType = WalletType.ethereum;
 
-  final _ethereumWallet = WalletModel(
-      'label', 'addressaddressaddressaddressaddressaddress', 'ethereum');
+  final _ethereumWallet =
+      WalletModel('Ethereum Wallet', kVitalikWallet, 'ethereum');
 
-  final _bitcoinWallet = WalletModel(
-      'label', 'addressaddressaddressaddressaddressaddress', 'bitcoin');
+  final _bitcoinWallet =
+      WalletModel('Bitcoin Wallet', kSatoshiWallet, 'bitcoin');
 
   void _addWallet() {
-    if (_addressFormKey.currentState.validate() &&
-        _labelFormKey.currentState.validate()) {
+    if (_labelFormKey.currentState.validate() &&
+        _addressFormKey.currentState.validate()) {
       final wallet = WalletModel(
         _labelTextController.text.trim(),
         _addressTextController.text.trim(),
@@ -47,20 +48,20 @@ class _AddNewWalletState extends State<AddNewWallet> {
     return Scaffold(
       appBar: AppBar(title: Text('Add New Wallet')),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(size.height * 0.01),
+        padding: EdgeInsets.all(size.height * 0.015),
         child: Column(
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Enter wallet address'),
+                Text('Enter wallet label'),
                 SizedBox(height: size.height * 0.01),
                 Form(
-                  key: _addressFormKey,
+                  key: _labelFormKey,
                   child: TextFormField(
                     validator: (input) =>
-                        FormValidation().validateWalletAddress(input),
-                    controller: _addressTextController,
+                        FormValidation().validateWalletLabel(input),
+                    controller: _labelTextController,
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
@@ -75,14 +76,14 @@ class _AddNewWalletState extends State<AddNewWallet> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Enter wallet label'),
+                Text('Enter wallet address'),
                 SizedBox(height: size.height * 0.01),
                 Form(
-                  key: _labelFormKey,
+                  key: _addressFormKey,
                   child: TextFormField(
                     validator: (input) =>
-                        FormValidation().validateWalletLabel(input),
-                    controller: _labelTextController,
+                        FormValidation().validateWalletAddress(input),
+                    controller: _addressTextController,
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
