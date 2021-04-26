@@ -2,7 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:cactus_wallet_watcher/models/wallet_model.dart';
 import 'package:cactus_wallet_watcher/screens/add_new_wallet.dart';
 import 'package:cactus_wallet_watcher/screens/settings_screen.dart';
-import 'package:cactus_wallet_watcher/screens/wallet_page.dart';
+import 'package:cactus_wallet_watcher/screens/wallet_screen.dart';
 import 'package:cactus_wallet_watcher/services/hive_boxes.dart';
 import 'package:cactus_wallet_watcher/shared_components/custom_page_route.dart';
 import 'package:cactus_wallet_watcher/shared_components/wallet_card.dart';
@@ -51,7 +51,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               itemBuilder: (context, index) {
                 return OpenContainer(
-                  closedElevation: 5,
+                  closedColor: Colors.transparent,
+                  openColor: Colors.transparent,
+                  middleColor: Colors.transparent,
                   closedShape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -61,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   openBuilder: (context, openWidget) {
                     context.read(walletsStateManagerProvider).walletModel =
                         wallets[index];
-                    return WalletPage();
+                    return WalletScreen();
                   },
                 );
               },

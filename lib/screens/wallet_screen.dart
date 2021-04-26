@@ -21,9 +21,11 @@ final walletProvider =
   return ref.read(ethplorerAPIService).getAccountBalance(walletAddress);
 });
 
-class WalletPage extends StatelessWidget {
+class WalletScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: buildAppBar(context),
       body: Consumer(
@@ -33,22 +35,52 @@ class WalletPage extends StatelessWidget {
           return walletAsyncValue.when(
             loading: () => Center(child: CircularProgressIndicator()),
             data: (data) {
-              return Column(
-                children: [
-                  WalletHeader(eth: data.eth),
-                  Divider(color: Colors.black, height: 0),
-                  TokenListHeader(),
-                  Divider(color: Colors.black, height: 0),
-                  Expanded(
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: data.tokens.length,
-                      itemBuilder: (context, index) {
-                        return TokenListTile(token: data.tokens[index]);
-                      },
-                    ),
+              return DefaultTabController(
+                length: 2,
+                child: NestedScrollView(
+                  headerSliverBuilder: (context, innerBoxIsScrolled) {
+                    return [
+                      SliverAppBar(
+                        automaticallyImplyLeading: false,
+                        expandedHeight: size.height * 0.25,
+                        elevation: 0,
+                        floating: true,
+                        pinned: true,
+                        flexibleSpace: FlexibleSpaceBar(
+                          background: Padding(
+                            padding: EdgeInsets.only(bottom: 35),
+                            child: WalletHeader(eth: data.eth),
+                          ),
+                        ),
+                        bottom: TabBar(
+                          tabs: [
+                            Tab(child: Text('Tokens')),
+                            Tab(child: Text('Transactions')),
+                          ],
+                        ),
+                      ),
+                    ];
+                  },
+                  body: TabBarView(
+                    children: [
+                      Column(
+                        children: [
+                          TokenListHeader(),
+                          Expanded(
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: data.tokens.length,
+                              itemBuilder: (context, index) {
+                                return TokenListTile(token: data.tokens[index]);
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      Container(),
+                    ],
                   ),
-                ],
+                ),
               );
             },
             error: (error, stackTrace) {
@@ -71,6 +103,7 @@ class WalletPage extends StatelessWidget {
     }
 
     return AppBar(
+      elevation: 0,
       title: Text(walletModel.label),
       actions: [
         PopupMenuButton(

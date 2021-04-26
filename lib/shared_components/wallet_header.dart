@@ -18,8 +18,6 @@ class WalletHeader extends StatelessWidget {
         context.read(walletsStateManagerProvider).walletModel.address;
 
     return Container(
-      height: size.height * 0.2,
-      width: double.infinity,
       padding: EdgeInsets.all(size.height * 0.01),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

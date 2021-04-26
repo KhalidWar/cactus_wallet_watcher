@@ -22,6 +22,7 @@ class QRScreen extends StatelessWidget {
               version: QrVersions.auto,
               size: size.height * 0.5,
               padding: EdgeInsets.all(size.height * 0.05),
+              backgroundColor: Colors.white,
             ),
             Column(
               children: [

@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(),
+      theme: ThemeData.dark().copyWith(primaryColor: Colors.black),
       home: HomeScreen(),
     );
   }

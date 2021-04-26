@@ -3,14 +3,20 @@ import 'package:flutter/material.dart';
 
 class WalletCard extends StatelessWidget {
   const WalletCard({Key key, this.walletModel}) : super(key: key);
-
   final WalletModel walletModel;
 
-  String getWalletType(String walletType) {
+  Image getWalletImage(String walletType, Size size) {
     if (walletType == 'ethereum') {
-      return 'assets/images/ethereum.png';
+      return Image.asset(
+        'assets/images/ethereum.png',
+        width: size.width * 0.2,
+        color: Colors.grey,
+      );
     } else {
-      return 'assets/images/bitcoin.png';
+      return Image.asset(
+        'assets/images/bitcoin.png',
+        width: size.width * 0.2,
+      );
     }
   }
 
@@ -20,19 +26,16 @@ class WalletCard extends StatelessWidget {
     final walletAddress = walletModel.address;
 
     return Container(
+      color: Theme.of(context).primaryColor,
       padding: EdgeInsets.all(8),
       child: Column(
         children: [
-          Expanded(
-            child: Image.asset(
-              getWalletType(walletModel.type),
-              width: size.width * 0.2,
-            ),
-          ),
+          Expanded(child: getWalletImage(walletModel.type, size)),
           Text(
             walletModel.label,
             style: Theme.of(context).textTheme.bodyText1,
           ),
+          SizedBox(height: 5),
           Text(
             '${walletAddress.substring(0, 4)}....${walletAddress.substring(walletAddress.length - 4)}',
           ),
