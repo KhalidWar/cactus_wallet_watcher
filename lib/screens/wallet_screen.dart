@@ -5,6 +5,8 @@ import 'package:cactus_wallet_watcher/models/ethplorer_account_balance.dart';
 import 'package:cactus_wallet_watcher/shared_components/confirmation_dialog.dart';
 import 'package:cactus_wallet_watcher/shared_components/token_list_header.dart';
 import 'package:cactus_wallet_watcher/shared_components/token_list_tile.dart';
+import 'package:cactus_wallet_watcher/shared_components/transactions_tab.dart';
+import 'package:cactus_wallet_watcher/shared_components/wallet_error_widget.dart';
 import 'package:cactus_wallet_watcher/shared_components/wallet_header.dart';
 import 'package:cactus_wallet_watcher/state_management/class_providers.dart';
 import 'package:cactus_wallet_watcher/state_management/wallets_state_manager.dart';
@@ -84,7 +86,7 @@ class WalletScreen extends StatelessWidget {
               );
             },
             error: (error, stackTrace) {
-              return Center(child: Text(error.toString()));
+              return WalletErrorWidget(error: error.toString());
             },
           );
         },
