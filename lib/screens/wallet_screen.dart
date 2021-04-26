@@ -79,7 +79,7 @@ class WalletScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Container(),
+                      TransactionsTab(),
                     ],
                   ),
                 ),

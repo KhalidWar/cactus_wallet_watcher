@@ -15,6 +15,7 @@ const kTagLatest = 'latest';
 /// Ethplorer
 const kEthplorerBaseURL = 'https://api.ethplorer.io';
 const kEthplorerAddressInfoURL = 'getAddressInfo';
+const kEthplorerAddressTXURL = 'getAddressTransactions';
 const kEthplorerIO = 'https://ethplorer.io';
 
 /// UI String
