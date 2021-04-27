@@ -49,6 +49,7 @@ class WalletScreen extends StatelessWidget {
                         floating: true,
                         pinned: true,
                         flexibleSpace: FlexibleSpaceBar(
+                          collapseMode: CollapseMode.pin,
                           background: Padding(
                             padding: EdgeInsets.only(bottom: 35),
                             child: WalletHeader(eth: data.eth),
@@ -110,7 +111,7 @@ class WalletScreen extends StatelessWidget {
       actions: [
         PopupMenuButton(
           itemBuilder: (BuildContext context) {
-            return ['Delete recipient'].map((String choice) {
+            return ['Delete Wallet'].map((String choice) {
               return PopupMenuItem<String>(
                 value: choice,
                 child: Text(choice),
@@ -123,9 +124,9 @@ class WalletScreen extends StatelessWidget {
               builder: (context) {
                 return Platform.isIOS
                     ? confirmationDialog.iOSAlertDialog(context,
-                        kDeleteWalletConfirmation, remove, 'Delete recipient')
+                        kDeleteWalletConfirmation, remove, 'Delete Wallet')
                     : confirmationDialog.androidAlertDialog(context,
-                        kDeleteWalletConfirmation, remove, 'Delete recipient');
+                        kDeleteWalletConfirmation, remove, 'Delete Wallet');
               },
             );
           },

@@ -1,5 +1,5 @@
 import 'package:cactus_wallet_watcher/models/transaction_model.dart';
-import 'package:cactus_wallet_watcher/services/date_time_fixer.dart';
+import 'package:cactus_wallet_watcher/services/niche_functions.dart';
 import 'package:cactus_wallet_watcher/shared_components/wallet_error_widget.dart';
 import 'package:cactus_wallet_watcher/state_management/class_providers.dart';
 import 'package:cactus_wallet_watcher/state_management/wallets_state_manager.dart';
@@ -34,15 +34,14 @@ class TransactionsTab extends ConsumerWidget {
                 return ListTile(
                   horizontalTitleGap: 0,
                   leading: tx.success
-                      ? Icon(Icons.check_circle_outline_rounded,
-                          color: Colors.green)
+                      ? Icon(Icons.check, color: Colors.green)
                       : Icon(Icons.close_rounded, color: Colors.red),
                   subtitle: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('Value: ${tx.value.toStringAsFixed(2)} ETH'),
                       Text(
-                        'Time: ${DateTimeFixer().fixTimestamp(tx.timestamp)}',
+                        'Time: ${NicheFunctions().fixTimestamp(tx.timestamp)}',
                       ),
                       Container(),
                     ],
@@ -60,7 +59,6 @@ class TransactionsTab extends ConsumerWidget {
                       Container(),
                     ],
                   ),
-                  onTap: () {},
                 );
               },
             );

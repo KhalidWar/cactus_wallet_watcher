@@ -1,8 +1,7 @@
-import 'package:cactus_wallet_watcher/constants.dart';
 import 'package:cactus_wallet_watcher/models/wallet_model.dart';
 import 'package:cactus_wallet_watcher/services/form_validation.dart';
 import 'package:cactus_wallet_watcher/services/hive_boxes.dart';
-import 'package:cactus_wallet_watcher/shared_components/wallet_card.dart';
+import 'package:cactus_wallet_watcher/services/niche_functions.dart';
 import 'package:flutter/material.dart';
 
 enum WalletType { ethereum, bitcoin }
@@ -17,14 +16,10 @@ class _AddNewWalletState extends State<AddNewWallet> {
   final _labelFormKey = GlobalKey<FormState>();
   final _addressTextController = TextEditingController();
   final _labelTextController = TextEditingController();
+  final _nicheFunctions = NicheFunctions();
+  final _formValidator = FormValidation();
 
   WalletType _walletType = WalletType.ethereum;
-
-  final _ethereumWallet =
-      WalletModel('Ethereum Wallet', kVitalikWallet, 'ethereum');
-
-  final _bitcoinWallet =
-      WalletModel('Bitcoin Wallet', kSatoshiWallet, 'bitcoin');
 
   void _addWallet() {
     if (_labelFormKey.currentState.validate() &&
@@ -47,20 +42,54 @@ class _AddNewWalletState extends State<AddNewWallet> {
 
     return Scaffold(
       appBar: AppBar(title: Text('Add New Wallet')),
-      body: SingleChildScrollView(
+      resizeToAvoidBottomInset: false,
+      body: Padding(
         padding: EdgeInsets.all(size.height * 0.015),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Enter wallet label'),
+                Text('Wallet address'),
+                SizedBox(height: size.height * 0.01),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Form(
+                        key: _addressFormKey,
+                        child: TextFormField(
+                          validator: (input) =>
+                              _formValidator.validateWalletAddress(input),
+                          controller: _addressTextController,
+                          textInputAction: TextInputAction.next,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.blue)),
+                          ),
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.camera_alt_outlined,
+                        size: size.height * 0.05,
+                      ),
+                      onPressed: () {
+                        _nicheFunctions.showToast('Coming soon!');
+                      },
+                    ),
+                  ],
+                ),
+                SizedBox(height: size.height * 0.03),
+                Text('Wallet label'),
                 SizedBox(height: size.height * 0.01),
                 Form(
                   key: _labelFormKey,
                   child: TextFormField(
                     validator: (input) =>
-                        FormValidation().validateWalletLabel(input),
+                        _formValidator.validateWalletLabel(input),
                     controller: _labelTextController,
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
@@ -73,93 +102,70 @@ class _AddNewWalletState extends State<AddNewWallet> {
               ],
             ),
             SizedBox(height: size.height * 0.03),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Enter wallet address'),
-                SizedBox(height: size.height * 0.01),
-                Form(
-                  key: _addressFormKey,
-                  child: TextFormField(
-                    validator: (input) =>
-                        FormValidation().validateWalletAddress(input),
-                    controller: _addressTextController,
-                    textInputAction: TextInputAction.next,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue)),
-                    ),
-                  ),
-                ),
-              ],
+            Text(
+              'Select Wallet Type',
+              style: Theme.of(context).textTheme.headline6,
             ),
-            SizedBox(height: size.height * 0.03),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Container(
-                  height: size.height * 0.3,
-                  width: size.width * 0.4,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Expanded(child: WalletCard(walletModel: _ethereumWallet)),
-                      Radio<WalletType>(
-                        value: WalletType.ethereum,
-                        groupValue: _walletType,
-                        onChanged: (WalletType value) {
-                          setState(() {
-                            _walletType = value;
-                          });
-                        },
-                      ),
-                    ],
+                InkWell(
+                  child: buildWalletCard(
+                    context,
+                    _walletType == WalletType.ethereum,
+                    'ethereum',
                   ),
+                  onTap: () {
+                    setState(() {
+                      _walletType = WalletType.ethereum;
+                    });
+                  },
                 ),
-                Container(
-                  height: size.height * 0.3,
-                  width: size.width * 0.4,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Expanded(
-                        child: WalletCard(walletModel: _bitcoinWallet),
-                      ),
-                      Radio<WalletType>(
-                        value: WalletType.bitcoin,
-                        groupValue: _walletType,
-                        // onChanged: (WalletType value) {
-                        //   setState(() {
-                        //     _walletType = value;
-                        //   });
-                        // },
-                      ),
-                    ],
+                InkWell(
+                  child: buildWalletCard(
+                    context,
+                    _walletType == WalletType.bitcoin,
+                    'bitcoin',
                   ),
+                  onTap: () {
+                    _nicheFunctions.showToast('Coming soon!');
+                  },
                 ),
               ],
             ),
             SizedBox(height: size.height * 0.1),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                minimumSize: Size(200, 50),
+                minimumSize: Size(size.width, size.height * 0.06),
               ),
               child: Text('Add Wallet'),
               onPressed: () => _addWallet(),
             ),
-            SizedBox(height: size.height * 0.01),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(200, 50),
-                primary: Colors.grey,
-              ),
-              child: Text('Go back'),
-              onPressed: () => Navigator.pop(context),
-            ),
           ],
         ),
       ),
+    );
+  }
+
+  Container buildWalletCard(
+      BuildContext context, bool walletType, String wallet) {
+    final size = MediaQuery.of(context).size;
+
+    return Container(
+      height: size.height * 0.3,
+      width: size.width * 0.4,
+      padding: EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Theme.of(context).primaryColor,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(
+          color:
+              walletType ? Theme.of(context).accentColor : Colors.transparent,
+          width: 2,
+          style: BorderStyle.solid,
+        ),
+      ),
+      child: _nicheFunctions.getWalletImage(wallet, size),
     );
   }
 }
