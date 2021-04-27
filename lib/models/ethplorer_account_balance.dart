@@ -68,11 +68,13 @@ class PriceClass {
       marketCapUsd: json["marketCapUsd"].toDouble(),
       availableSupply: json["availableSupply"].toDouble(),
       volume24H: json["volume24h"].toDouble(),
-      diff30D: json["diff30d"] == null ? null : json["diff30d"].toDouble(),
-      volDiff1: json["volDiff1"].toDouble(),
-      volDiff7: json["volDiff7"] == null ? null : json["volDiff7"].toDouble(),
-      volDiff30:
-          json["volDiff30"] == null ? null : json["volDiff30"].toDouble(),
+      diff30D: json["diff30d"] ?? 0.0.toDouble(),
+      // volDiff1: json["volDiff1"].toDouble(),
+      volDiff1: 0.0,
+      // volDiff7: json["volDiff7"].toDouble(),
+      volDiff7: 0.0,
+      // volDiff30: json["volDiff30"].toDouble(),
+      volDiff30: 0.0,
       currency: json["currency"] == null ? null : json["currency"],
     );
   }
@@ -140,6 +142,16 @@ class TokenInfo {
   String reddit;
 
   factory TokenInfo.fromJson(Map<String, dynamic> json) {
+    final emptyPrice = PriceClass(
+        rate: 0.0,
+        diff: 0.0,
+        diff7D: 0.0,
+        ts: 0,
+        marketCapUsd: 0.0,
+        availableSupply: 0.0,
+        volume24H: 0.0,
+        currency: 'USD');
+
     return TokenInfo(
       address: json["address"],
       name: json["name"],
@@ -151,8 +163,9 @@ class TokenInfo {
       issuancesCount: json["issuancesCount"],
       holdersCount: json["holdersCount"],
       ethTransfersCount: json["ethTransfersCount"],
-      price:
-          json['price'] == false ? 0 : PriceClass.fromJson(json["price"]).rate,
+      price: json['price'] == false
+          ? emptyPrice
+          : PriceClass.fromJson(json["price"]),
       website: json["website"] == null ? null : json["website"],
       telegram: json["telegram"] == null ? null : json["telegram"],
       twitter: json["twitter"] == null ? null : json["twitter"],

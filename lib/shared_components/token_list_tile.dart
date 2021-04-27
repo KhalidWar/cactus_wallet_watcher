@@ -33,7 +33,7 @@ class TokenListTile extends StatelessWidget {
                   ),
             SizedBox(width: size.width * 0.02),
             Text(
-              symbol,
+              symbol ?? '????',
               style: Theme.of(context)
                   .textTheme
                   .headline6
@@ -42,13 +42,13 @@ class TokenListTile extends StatelessWidget {
           ],
         ),
       ),
-      title: Text(price.toStringAsExponential(1)),
+      title: Text(price.rate.toStringAsExponential(1)),
       trailing: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text('${balance.toStringAsExponential(1)}'),
-          Text('${(price * balance).toStringAsExponential(1)}'),
+          Text('${(price.rate * balance).toStringAsExponential(1)}'),
         ],
       ),
     );
