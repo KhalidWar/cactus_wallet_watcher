@@ -1,16 +1,50 @@
-# cactus_wallet_watcher
+# Cactus Wallet Watcher
+Keep an eye on your wallet, or others'. This app is built using [Flutter](https://flutter.dev) framework.
 
-An application to keep tabs on your wallets.
 
-## Getting Started
+## Screenshots
+<img src="assets/screenshots/home_screen.jpg" width="150"> <img src="assets/screenshots/wallet_screen_tokens.jpg" width="150"> <img src="assets/screenshots/wallet_screen_transactions.jpg" width="150"> <img src="assets/screenshots/qr_screen.jpg" width="150"> <img src="assets/screenshots/add_new_wallet.jpg" width="150"> 
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Features
+- Simple and intuitive Ethereum wallet watcher
+- Keep an eye on your wallet's tokens and transactions
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Upcoming Features
+- Bitcoin wallet watching
+- Wallet renaming
+- ... and many more
+
+
+## Packages used
+- [Flutter Riverpod](https://pub.dev/packages/flutter_riverpod)
+- [URL Launcher](https://pub.dev/packages/url_launcher)
+- [Animations](https://pub.dev/packages/animations)
+- [Hive](https://pub.dev/packages/hive)
+- [Hive Flutter](https://pub.dev/packages/hive_flutter)
+- [Hive Generator](https://pub.dev/packages/hive_generator)
+- [Fluttertoast](https://pub.dev/packages/fluttertoast)
+- [Intl](https://pub.dev/packages/intl)
+- [QR Flutter](https://pub.dev/packages/qr_flutter)
+- [Coingecko Dart](https://pub.dev/packages/coingecko_dart)
+
+
+## Installation
+Install by either sideloading attacked [APK file](https://github.com/KhalidWar/cactus_wallet_watcher/releases) on your android device or by building project from source following steps below.
+
+### Getting Started
+Check out [Flutter's official guide](https://flutter.dev/docs/get-started/install) to installing and running flutter.
+
+### Prerequisites
+- Download an IDE either [Android Studio](https://developer.android.com/studio) or [VSC](https://code.visualstudio.com/)
+- Install Flutter SDK and Dart plugin
+- Emulator or physical device
+
+### Steps
+- Clone this repo to your machine: `https://github.com/KhalidWar/cactus_wallet_watcher.git`
+- Run on Emulator or physical device
+- All set!
+
+## License
+This project is licensed under [MIT License](https://github.com/KhalidWar/cactus_wallet_watcher/blob/master/LICENSE).
