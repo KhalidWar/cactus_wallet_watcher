@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 
 class NicheFunctions {
   String fixTimestamp(int timestamp) {
@@ -28,6 +29,16 @@ class NicheFunctions {
         width: size.width * 0.2,
       );
     }
+  }
+
+  String compact(dynamic input) {
+    final compactLong = NumberFormat.compact();
+    return compactLong.format(input);
+  }
+
+  String straightFormat(double input) {
+    var formation = NumberFormat("#,###,###.#");
+    return formation.format(input);
   }
 
   void showToast(String message) {

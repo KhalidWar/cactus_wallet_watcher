@@ -33,6 +33,7 @@ class TransactionsTab extends ConsumerWidget {
 
                 return ListTile(
                   horizontalTitleGap: 0,
+                  contentPadding: EdgeInsets.symmetric(horizontal: 10),
                   leading: tx.success
                       ? Icon(Icons.check, color: Colors.green)
                       : Icon(Icons.close_rounded, color: Colors.red),
@@ -43,7 +44,6 @@ class TransactionsTab extends ConsumerWidget {
                       Text(
                         'Time: ${NicheFunctions().fixTimestamp(tx.timestamp)}',
                       ),
-                      Container(),
                     ],
                   ),
                   title: Row(
@@ -56,7 +56,6 @@ class TransactionsTab extends ConsumerWidget {
                       Text(
                         '${tx.to.substring(0, 5)}....${tx.to.substring(tx.to.length - 5)}',
                       ),
-                      Container(),
                     ],
                   ),
                 );
