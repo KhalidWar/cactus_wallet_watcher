@@ -19,9 +19,14 @@ class TokenListHeader extends StatelessWidget {
                 'Token',
                 style: Theme.of(context).textTheme.bodyText1,
               ),
-              Text(
-                'Price',
-                style: Theme.of(context).textTheme.bodyText1,
+              Row(
+                children: [
+                  SizedBox(width: 30),
+                  Text(
+                    'Price',
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                ],
               ),
               Text(
                 'Holdings',

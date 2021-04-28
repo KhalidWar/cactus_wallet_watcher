@@ -2,6 +2,7 @@ import 'package:cactus_wallet_watcher/models/ethplorer_account_balance.dart';
 import 'package:cactus_wallet_watcher/services/niche_functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../constants.dart';
 
@@ -21,11 +22,20 @@ class TokenListTile extends StatelessWidget {
     final balance = token.balance / 1000000000000000000;
     final holdingsValue = balance * price;
 
+    String shortenBalance(double input) {
+      if (input.toStringAsFixed(1).length > 15) {
+        var formation = NumberFormat.compactLong();
+        return formation.format(input);
+      } else {
+        return nicheFunction.straightFormat(input);
+      }
+    }
+
     return ListTile(
       horizontalTitleGap: 0,
       contentPadding: EdgeInsets.symmetric(horizontal: 10),
       leading: Container(
-        width: size.width * 0.4,
+        width: size.width * 0.48,
         child: Row(
           children: [
             image == null
@@ -46,7 +56,7 @@ class TokenListTile extends StatelessWidget {
                       .bodyText1
                       .copyWith(color: Colors.orange),
                 ),
-                Text('${nicheFunction.straightFormat(balance)}'),
+                Text('${shortenBalance(balance)}'),
               ],
             ),
           ],
