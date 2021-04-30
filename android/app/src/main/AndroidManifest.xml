@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.khalidwar.cactus_wallet_watcher">
    <application
-        android:label="cactus_wallet_watcher"
+        android:label="Cactus Wallet Watcher"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
