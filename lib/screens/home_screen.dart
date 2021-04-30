@@ -6,6 +6,7 @@ import 'package:cactus_wallet_watcher/screens/wallet_screen.dart';
 import 'package:cactus_wallet_watcher/services/hive_boxes.dart';
 import 'package:cactus_wallet_watcher/shared_components/custom_page_route.dart';
 import 'package:cactus_wallet_watcher/shared_components/wallet_card.dart';
+import 'package:cactus_wallet_watcher/state_management/class_providers.dart';
 import 'package:cactus_wallet_watcher/state_management/wallets_state_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read(initVitalikWallet).addVitalikWallet();
+  }
+
   @override
   void dispose() {
     Hive.close();
