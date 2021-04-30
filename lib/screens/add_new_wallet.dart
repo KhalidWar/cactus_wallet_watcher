@@ -22,8 +22,8 @@ class _AddNewWalletState extends State<AddNewWallet> {
   WalletType _walletType = WalletType.ethereum;
 
   void _addWallet() {
-    if (_labelFormKey.currentState.validate() &&
-        _addressFormKey.currentState.validate()) {
+    if (_addressFormKey.currentState.validate() &&
+        _labelFormKey.currentState.validate()) {
       final wallet = WalletModel(
         _labelTextController.text.trim(),
         _addressTextController.text.trim(),
@@ -91,6 +91,7 @@ class _AddNewWalletState extends State<AddNewWallet> {
                     validator: (input) =>
                         _formValidator.validateWalletLabel(input),
                     controller: _labelTextController,
+                    textCapitalization: TextCapitalization.words,
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
